@@ -1,0 +1,128 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\title{Abgabe 1 für Computergestützte Methoden}
+\author{Gruppe 65, Mika Heining(4339555),David Gerbode(4242392),\\Maxim Wiebe(4338202)}
+\date{2.12.2024}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+\section{Der zentrale Grenzwertsatz}
+\subsection{Aussage}
+Der zentrale Grenzwertsatz (ZGS) ist ein fundamentales Resultat der Wahrscheinlichkeitstheorie, das die Verteilung von Summen unabhängiger, identisch verteilter (i.i.d.) Zufallsvariablen (ZV) beschreibt. Er besagt, dass unter bestimmten Voraussetzungen die Summe einer großen Anzahl solcher ZV annähernd normalverteilt ist, unabhängig von der Verteilung der einzelnen ZV. Dies ist besonders nützlich, da die Normalverteilung gut untersucht und mathematisch handhabbar ist.
+
+Sei $X_1, X_2, \ldots, X_n$ eine Folge von i.i.d. ZV mit dem Erwartungswert $\mu = E(X_i)$ und der Varianz $\sigma^2 = \text{Var}(X_i)$, wobei $0 < \sigma^2 < \infty$ gelte. Dann konvergiert die standardisierte Summe $Z_n$ dieser ZV für $n \to \infty$ in Verteilung gegen eine Standardnormalverteilung:
+\[
+Z_n = \frac{\sum_{i=1}^n X_i - n\mu}{\sigma \sqrt{n}} \xrightarrow{d} N(0, 1).
+\]
+Das bedeutet, dass für große $n$ die Summe der ZV näherungsweise normalverteilt ist mit Erwartungswert $n\mu$ und Varianz $n\sigma^2$:
+\[
+\sum_{i=1}^n X_i \sim N(n\mu, n\sigma^2).
+\]
+
+\subsection{Erklärung der Standardisierung}
+Um die Summe der ZV in eine Standardnormalverteilung zu transformieren, subtrahiert man den Erwartungswert $n\mu$ und teilt durch die Standardabweichung $\sigma \sqrt{n}$. Dies führt zu der obigen Formel (1). Die Darstellung (2) ist für $n \to \infty$ nicht wohldefiniert.
+
+\subsection{Anwendungen}
+Der ZGS wird in vielen Bereichen der Statistik und der Wahrscheinlichkeitstheorie angewendet. Typische Beispiele sind:
+\begin{itemize}
+    \item Berechnung von Konfidenzintervallen für Stichprobenwerte
+    \item Durchführung von Hypothesentests
+\end{itemize}
+
+Der zentrale Grenzwertsatz hat verschiedene Verallgemeinerungen. Eine davon ist der Lindeberg-Feller-Zentrale-Grenzwertsatz \cite[Seite 328]{klenke2013}.
+
+\section{Bearbeitung zur Aufgabe 1}
+\subsection{Datenverarbeitung}
+\subsubsection{}
+Daten liegen als Datenbank als Tabellenform in "csv datei“ vor. Daten sind
+unübersichtlich angeordnet und nicht zu ordnungsbar
+\subsubsection{}
+Importierung der ".csv“ Daten in excel Tabelle: Wähle Registerkarte "Daten“ in
+der Menüleiste, daraufhin "Daten Importieren“ um externe Daten abzurufen,
+".csv“ Datei auswählen und dem Import-assistenten folgen. Daten sind nun in
+einer Tabellenkalkulation angeordnet.
+\subsubsection{}
+Die höchste mittlere Temperatur beträgt 0 Grad Celsius. Temperaturen sind in der
+"J" angegeben um die höchste mittlere Temperatur zu berechnen haben
+wir den Befehl "=MAX(J2:J36440)“ genutzt, da in "J1“ die Zuordnungskennung
+steht.
+\subsection{Datenhaltung}
+\subsubsection{} 
+Tabelle: Stationen
+\begin{itemize}
+    \item id (INTEGER, Primärschlüssel)
+    \item station (TEXT, nicht null)
+\end{itemize}
+
+Tabelle: Wetterdaten
+\begin{itemize}
+    \item id (INTEGER, Primärschlüssel)
+    \item station_id (INTEGER, Fremdschlüssel zu Stationen.id)
+    \item datum (TEXT, nicht null)
+    \item temperatur_min (REAL, nicht null)
+    \item temperatur_avg (REAL, nicht null)
+    \item temperatur_max (REAL, nicht null)
+    \item precipitation (REAL, nicht null)
+    \item windspeed (REAL, nicht null)
+    \item count (INTEGER, nicht null)
+\end{itemize}
+\subsubsection{}
+CREATE TABLE Stationen (\\
+    id INTEGER PRIMARY KEY,\\
+    station TEXT NOT NULL\\
+);\\
+
+CREATE TABLE Wetterdaten (\\
+    id INTEGER PRIMARY KEY,\\
+    station_id INTEGER,\\
+    datum TEXT NOT NULL,\\
+    temperatur_min REAL NOT NULL,\\
+    temperatur_avg REAL NOT NULL,\\
+    temperatur_max REAL NOT NULL,\\
+    precipitation REAL NOT NULL,\\
+    windspeed REAL NOT NULL,\\
+    count INTEGER NOT NULL,\\
+    FOREIGN KEY (station_id) REFERENCES Stationen(id)\\
+);\\
+
+\subsubsection{}
+\begin{itemize}
+    \item Die Daten wurden in Microsoft Excel Organisiert
+    \item Die Tabellen wurden erstellt und anschließend als CSV-Datei exportiert
+\end{itemize}
+
+\pagebreak
+\subsubsection{}
+Um die höchste mittlere Temperatur zu ermitteln, wurde folgende SQL-Abfrage formuliert:\\\\
+
+SELECT s.station, AVG(w.temperatur_avg) AS durchschnittstemperatur\\
+FROM Wetterdaten w\\
+JOIN Stationen s ON w.station_id = s.id\\
+GROUP BY s.station\\
+ORDER BY durchschnittstemperatur DESC\\
+LIMIT 1;\\
+
+Nach Ausführung der Abfrage in SQLite wurde folgendes Ergebnis erzielt:\\
+Station: 1 Ave & E 18 St\\
+Durchschnittstemperatur: 50.5 °C\\ (Beispielwert, tatsächliches Ergebnis kann variieren)
+
+
+
+\section{Literatur}
+\subsection{Github}
+Hier ist der Link zum Github Repository:
+\href{https://github.com/PtkoN5/COMETprojektwiwi.git}{GitRepoGruppe65}
+
+
+\begin{thebibliography}{9}
+\bibitem{klenke2013} Achim Klenke. \textit{Wahrscheinlichkeitstheorie}. Springer, 3. Auflage, 2013.
+\end{thebibliography}
+
+\end{document}
