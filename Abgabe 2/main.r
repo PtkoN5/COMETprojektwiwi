@@ -1,4 +1,4 @@
-### plotly pakete
+### R Packages die wir brauchen für Abgabe 2
 ###install.packages("rmarkdown")    ### Muss für Dokumentation überlegt werden
 ###install.packages("testthat")     ### Muss für 3.4 benutzt werden
 ###install.packages("ggplot2")      ### Muss für 4.2/4.4 benutzt werden
