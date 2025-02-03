@@ -25,7 +25,7 @@ print(wahrscheinlichkeit)
 
 #3.2
 #Umbenenung der Funktion und hinzufügen von k als Parameter
-wichtel_ungluecklich <- function(n, k, ierations = 1e6) {
+wichtel_ungluecklich <- function(n, k, iterations = 1e6) {
   ungluecksfälle <- 0     #Zähler für die Anzahl der Personen die ihr eigenes Geschenk haben
   
   #Simulationsfunktion
@@ -37,7 +37,7 @@ wichtel_ungluecklich <- function(n, k, ierations = 1e6) {
       counter <- counter + 1
     }
   }
-  wahrscheinlichkeit <- counter / ierations # Berechnung der Wahrscheinlichkeit für mindestens k Personen die ihr eigenes Geschenk haben
+  wahrscheinlichkeit <- counter / ierations # Berechnung der Wkeit für min. k Personen die ihr eigenes Geschenk haben
   return(wahrscheinlichkeit) 
 }
 #Berechnung von der Warscheinlichkeit, für 8 Personen und 2 ierations
@@ -61,10 +61,8 @@ wichtel_unglueck <- function(n, k, iterationen = 1e6) {
       erfolg <- erfolg + 1
     }
   }
-  
   return(erfolg / iterationen)  # Wahrscheinlichkeit zurückgeben
 }
-
 # Testfälle definieren
 test_that("wichtel_unglueck funktioniert korrekt", {
   
@@ -157,7 +155,8 @@ monthly_counts <- aggregate(count ~ month_of_year, data = filtered_data, sum)
 highest_month <- monthly_counts[which.max(monthly_counts$count), ]
 
 # Ausgabe des Ergebnisses
-print(paste("Monat mit der höchsten Anzahl ausgeliehener Fahrräder:",highest_month$month_of_year,"mit",highest_month$count,"Ausleihen."))
+print(paste("Monat mit der höchsten Anzahl ausgeliehener Fahrräder:",
+            highest_month$month_of_year,  "mit",highest_month$count,"Ausleihen."))
 
 
 
@@ -178,7 +177,7 @@ ggplot(filtered_data, aes(x = average_temperature, y = count)) +
 ggplot(filtered_data, aes(x = precipitation, y = count)) +
   geom_point() +
   labs(
-    title = "Zusammenhang zwischen Temperatur und Fahrradausleihen",
+    title = "Zusammenhang zwischen der Niederschlagsmenge und Fahrradausleihen",
     x = "Niederschlagsmenge",
     y = "Anzahl ausgeliehener Fahrräder" 
   ) +
@@ -188,7 +187,7 @@ ggplot(filtered_data, aes(x = precipitation, y = count)) +
 ggplot(filtered_data, aes(x = windspeed, y = count)) +
   geom_point() +
   labs(
-    title = "Zusammenhang zwischen Temperatur und Fahrradausleihen",
+    title = "Zusammenhang zwischen Windgeschwindigkeit in km/h und Fahrradausleihen",
     x = "Windgeschwindigkeit in km/h",
     y = "Anzahl ausgeliehener Fahrräder" 
   ) +
@@ -197,7 +196,7 @@ ggplot(filtered_data, aes(x = windspeed, y = count)) +
 ggplot(filtered_data, aes(x = date, y = count)) +
   geom_point() +
   labs(
-    title = "Zusammenhang zwischen Temperatur und Fahrradausleihen",
+    title = "Zusammenhang zwischen Zeit und Fahrradausleihen",
     x = "Zeit",
     y = "Anzahl ausgeliehener Fahrräder" 
   ) +
