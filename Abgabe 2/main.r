@@ -141,6 +141,10 @@ filtered_data$max_temperature #Anzeigen der NA Werte in der Spalte max_temperatu
 which(is.na(filtered_data$max_temperature)) #Anzeigen der NA Werte in der Spalte max_temperature
 filtered_data$max_temperature[136] <- 70 #Ersetzen des NA Wertes
 
+
+#test ob alle NAs ersetzt wurden 
+anyNA(filtered_data) 
+
 #Anpassung von Fahrenheit in Celsius
 filtered_data$min_temperature <- (filtered_data$min_temperature -32) * 5/9
 filtered_data$average_temperature <- (filtered_data$average_temperature -32)* 5/9
@@ -200,9 +204,6 @@ ggplot(filtered_data, aes(x = date, y = count)) +
   theme_minimal()
 
 #4.3
-# Laden der benötigten Bibliotheken
-library(ggplot2)
-
 # Laden der benötigten Bibliotheken
 library(ggplot2)
 
